@@ -27,4 +27,7 @@ replay_pid*
 # MacOS files
 .DS_Store
 
+# Ignore
+temp/
+*-tbd.*
 
