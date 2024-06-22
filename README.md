@@ -13,6 +13,13 @@ manage all those application, while also helping us stay on top of any current
 applications that we've sent out. 
 
 
+## How to run? 
+
+```
+./mvnw spring-boot:run
+```
+
+
 ## Tech Stack: 
 
 
