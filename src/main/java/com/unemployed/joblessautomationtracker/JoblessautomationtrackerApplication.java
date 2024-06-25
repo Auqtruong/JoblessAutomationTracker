@@ -9,5 +9,4 @@ public class JoblessautomationtrackerApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(JoblessautomationtrackerApplication.class, args);
 	}
-
 }
