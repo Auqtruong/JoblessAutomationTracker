@@ -1,0 +1,24 @@
+//import necessary jUnit, springframework, and testing/assert
+
+@Annotations
+public class UserServiceTest {
+    
+    private UserRepository repository;
+    
+    private UserService service;
+    
+    @Test //jUnit test to test if user loads/returns properly
+    public void test_loadUserByUsername_returns_user_when_valid(){
+        
+        //create user username
+        //create user password
+        
+        //create user
+        
+        //expected
+        
+        //actual
+        UserDetails actual = service.
+
+    }
+}

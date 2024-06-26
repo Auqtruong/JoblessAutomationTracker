@@ -1,0 +1,31 @@
+//import necessary jUnit, springframework, and testing/assert
+
+@Annotations
+@DataJpaTest
+public class UserRepositoryTest {
+    
+    @Autowired
+    private UserRepository repository;
+    
+    @Autowired
+    private TestEntityManager entityManager;
+    
+    @Test //jUnit test to test save user function
+    public void test_save_stores_user_when_valid(){
+        
+        User expected = new User();
+        //set expected username
+        //set expected password
+        
+        //save expected user into repo
+        User saved = repository.save(expected);
+        
+        //use entityManager find() method to grab user via primary key
+        //find(class, username)
+        User actual = entityManager.find(User.class,);
+        
+        //check if created user was stored properly in db
+        assertThat(actual).isEqualTo(expected);
+        
+    }
+}
