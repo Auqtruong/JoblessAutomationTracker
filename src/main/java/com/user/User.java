@@ -1,4 +1,4 @@
-package main.java.com.user;
+package com.user;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "users")
-@Data
+@Data //@Data should auto-generate getters and setters
 @NoArgsConstructor
 @AllArgsConstructor
 public class User {
