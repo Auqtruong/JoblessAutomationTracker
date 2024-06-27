@@ -1,4 +1,6 @@
 //import necessary jUnit, springframework, and testing/assert
+package com.unemployed.joblessautomationtracker.user;
+
 
 @Annotations
 public class UserServiceTest {
@@ -21,4 +23,20 @@ public class UserServiceTest {
         UserDetails actual = service.
 
     }
+
+    @Test //jUnit test to test if proper exception is thrown when user is not found
+    public void test_loadUserByUsername_throws_UserNotFoundException_when_invalid(){
+
+        //create user username
+        
+        //force repo.findByUsername(username) return empty/not found
+
+        //assert that correct exception thrown
+
+        //make sure there are no more interactions/behavior after exception is thrown
+
+    }
+
+    //test to be added later for save function when user entity is created in db
+
 }

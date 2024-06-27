@@ -1,7 +1,13 @@
-package main.java.com.user;
+package com.user;
 
-import org.springframework.stereo.Service;
+import java.util.Optional;
+
+//security imports will not be an issue after dependencies are uncommented in pom.xml
+import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 @Service
 public class UserService implements UserDetailsService{
@@ -17,6 +23,15 @@ public class UserService implements UserDetailsService{
     //TO IMPLEMENT: implement from interface UserDetailsService (for spring security)
     public UserDetail loadUserByUsername(final String username) throws UsernameNotFoundException {
 
+        //try to find user in db via username
+        User user = repository.findByUsername(username);
+        
+        //user isn't in DB
+        if(user.isEmpty()){
+            throw new UsernameNotFoundException("User " + username + " not found");
+        }
+
+        //return user data in a Singleton List since each user should only have 1 immutable instance of their account
     }
 
     //function to save user
