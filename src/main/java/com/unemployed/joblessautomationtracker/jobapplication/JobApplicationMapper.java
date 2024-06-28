@@ -9,6 +9,8 @@ public class JobApplicationMapper {
       .positionTitle(jobApp.getPositionTitle())
       .submittedOn(jobApp.getSubmittedOn())
       .companyTitle(jobApp.getCompanyTitle())
+      .createdOn(jobApp.getCreatedOn())
+      .updatedOn(jobApp.getUpdatedOn())
       .build();
     return jobApplication;
   }
@@ -19,6 +21,8 @@ public class JobApplicationMapper {
       .positionTitle(jobApp.getPositionTitle())
       .submittedOn(jobApp.getSubmittedOn())
       .companyTitle(jobApp.getCompanyTitle())
+      .createdOn(jobApp.getCreatedOn())
+      .updatedOn(jobApp.getUpdatedOn())
       .build();
     return jobApplicationDto;
   }

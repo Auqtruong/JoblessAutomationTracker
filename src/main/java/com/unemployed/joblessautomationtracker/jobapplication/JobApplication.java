@@ -12,6 +12,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import java.time.LocalDateTime;
 
+import com.unemployed.joblessautomationtracker.user.User;
 
 @Data
 @NoArgsConstructor
@@ -33,4 +34,8 @@ public class JobApplication {
 
   @UpdateTimestamp
   private LocalDateTime updatedOn;
+
+  @ManyToOne(cascade = CascadeType.ALL)
+  @JoinColumn(name="created_by",nullable=false)
+  private User createdBy;
 }
