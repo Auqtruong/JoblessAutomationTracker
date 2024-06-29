@@ -1,8 +1,8 @@
-package com.user;
+package com.unemployed.joblessautomationtracker.user;
 
 import java.util.Optional;
 
-import org.springframework.data.jpa.Repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 // user repository extends jpa repo which extends from pagingAndSorting repo which extends from Crud Repo

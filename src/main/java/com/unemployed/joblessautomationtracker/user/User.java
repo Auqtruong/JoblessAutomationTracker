@@ -1,4 +1,4 @@
-package com.user;
+package com.unemployed.joblessautomationtracker.user;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
