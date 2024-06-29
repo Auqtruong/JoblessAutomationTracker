@@ -36,7 +36,7 @@ class JobApplicationController {
     //   model.addAttribute("user", user);
     // }
     model.addAttribute("job_applications", jobApplications);
-    return "job-applications";
+    return "/job-applications";
   }
 
   @GetMapping("/job-app/{job-app-id}")
