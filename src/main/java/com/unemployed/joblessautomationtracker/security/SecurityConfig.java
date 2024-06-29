@@ -1,5 +1,6 @@
 package com.unemployed.joblessautomationtracker.security;
 
+import com.unemployed.joblessautomationtracker.user.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,10 +14,10 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
-  private CustomUserDetailsService userDetailsService;
+  private UserService userDetailsService;
 
   @Autowired
-  public SecurityConfig(CustomUserDetailsService userDetailsService) {
+  public SecurityConfig(UserService serDetailsService) {
     this.userDetailsService = userDetailsService;
   }
 

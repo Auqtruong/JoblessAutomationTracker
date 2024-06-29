@@ -28,28 +28,28 @@ class JobApplicationController {
 
   @GetMapping("/job-apps")
   public String jobApplicationsList(Model model) {
-    User user = new User();
+    // User user = new User();
     List<JobApplicationDto> jobApplications = jobApplicationService.getAllJobApplications();
-    String username = "Careless"; // FIXME: Update to use session username
-    if (username != null) {
-      user = userService.findByUsername(username);
-      model.addAttribute("user", user);
-    }
+    // String username = "Careless"; // FIXME: Update to use session username
+    // if (username != null) {
+    //   user = userService.loadUserByUsername(username);
+    //   model.addAttribute("user", user);
+    // }
     model.addAttribute("job_applications", jobApplications);
     return "job-applications";
   }
 
   @GetMapping("/job-app/{job-app-id}")
   public String jobApplicationDetails(@PathVariable("job-app-id") long jobAppId, Model model) {
-    User user = new User();
+    // User user = new User();
     JobApplicationDto jobAppDto = jobApplicationService.findJobApplicationById(jobAppId);
-    String username = "Careless"; // FIXME; Update to use session username
-
-    if (username != null) {
-      user = userService.findByUsername(username);
-      model.addAttribute("user", user);
-    }
-    model.addAttribute("user", user);
+    // String username = "Careless"; // FIXME; Update to use session username
+    //
+    // if (username != null) {
+    //   user = userService.findByUsername(username);
+    //   model.addAttribute("user", user);
+    // }
+    // model.addAttribute("user", user);
     model.addAttribute("JobApplication", jobAppDto);
     return "job-app-details";
   }

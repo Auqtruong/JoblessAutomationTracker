@@ -11,6 +11,7 @@ public class JobApplicationMapper {
       .companyTitle(jobApp.getCompanyTitle())
       .createdOn(jobApp.getCreatedOn())
       .updatedOn(jobApp.getUpdatedOn())
+      .createdBy(jobApp.getCreatedBy())
       .build();
     return jobApplication;
   }
@@ -23,6 +24,7 @@ public class JobApplicationMapper {
       .companyTitle(jobApp.getCompanyTitle())
       .createdOn(jobApp.getCreatedOn())
       .updatedOn(jobApp.getUpdatedOn())
+      .createdBy(jobApp.getCreatedBy())
       .build();
     return jobApplicationDto;
   }

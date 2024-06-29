@@ -21,4 +21,5 @@ public class JobApplicationDto {
   private LocalDateTime submittedOn;
   private LocalDateTime createdOn;
   private LocalDateTime updatedOn;
+  private User createdBy;
 }
