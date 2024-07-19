@@ -38,4 +38,14 @@ public class JobApplication {
   @ManyToOne(cascade = CascadeType.ALL)
   @JoinColumn(name="created_by",nullable=false)
   private User createdBy;
+  
+  private String applicationUrl;
+  private String contactInfo;
+  private String response;
+  private String workType; // Hybrid/On-site/Remote
+  private String status; // Interview Process/Stage/Status
+  private String location;
+  private String salary;
+  private String jobPlatform; // LinkedIn/Indeed/etc.
+
 }
