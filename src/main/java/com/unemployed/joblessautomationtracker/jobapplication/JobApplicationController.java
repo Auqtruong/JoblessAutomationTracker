@@ -1,5 +1,7 @@
 package com.unemployed.joblessautomationtracker.jobapplication;
 
+import com.unemployed.joblessautomationtracker.security.*;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,16 +11,23 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+
+import org.slf4j.Logger; 
+import org.slf4j.LoggerFactory; 
+
 import java.util.List;
 
 import com.unemployed.joblessautomationtracker.user.*;
 
 import jakarta.validation.Valid;
 
+
 @Controller
 class JobApplicationController {
   private JobApplicationService jobApplicationService;
   private UserService userService;
+
+  Logger logger = LoggerFactory.getLogger(JobApplicationController.class);
 
   @Autowired
   public JobApplicationController(JobApplicationService jobAppServ, UserService userService) {
@@ -26,66 +35,80 @@ class JobApplicationController {
     this.userService = userService;
   }
 
-  @GetMapping("/job-apps")
+  @GetMapping("/dashboard/job-apps")
   public String jobApplicationsList(Model model) {
-    // User user = new User();
+    User user = new User();
     List<JobApplicationDto> jobApplications = jobApplicationService.getAllJobApplications();
-    // String username = "Careless"; // FIXME: Update to use session username
-    // if (username != null) {
-    //   user = userService.loadUserByUsername(username);
-    //   model.addAttribute("user", user);
-    // }
-    model.addAttribute("job_applications", jobApplications);
-    return "/job-applications";
+    String email = SecurityUtility.getSessionUser();
+    if (email != null) {
+      user = userService.findByEmail(email);
+      model.addAttribute("user", user);
+    }
+    model.addAttribute("jobApplications", jobApplications);
+    // logger.info("Email: "+ user.getEmail());
+    // logger.info("Session User: "+ email);
+    // logger.info("Job Apps: "+ user.getJobApplications());
+    return "/dashboard/job-apps";
   }
 
-  @GetMapping("/job-app/{job-app-id}")
+  @GetMapping("/dashboard/job-app/{job-app-id}")
   public String jobApplicationDetails(@PathVariable("job-app-id") long jobAppId, Model model) {
-    // User user = new User();
+    User user = new User();
     JobApplicationDto jobAppDto = jobApplicationService.findJobApplicationById(jobAppId);
-    // String username = "Careless"; // FIXME; Update to use session username
-    //
-    // if (username != null) {
-    //   user = userService.findByUsername(username);
-    //   model.addAttribute("user", user);
-    // }
-    // model.addAttribute("user", user);
+    String username = SecurityUtility.getSessionUser();
+
+    if (username != null) {
+      user = userService.findByUsername(username);
+      model.addAttribute("user", user);
+    }
+    model.addAttribute("user", user);
     model.addAttribute("JobApplication", jobAppDto);
-    return "job-app-details";
+    return "/dashboard/job-app-details";
   }
 
-  @GetMapping("/job-app/new")
+  @GetMapping("/dashboard/job-app/new")
   public String jobApplicationCreate(Model model) {
     JobApplication jobApplication = new JobApplication();
     model.addAttribute("jobApplication", jobApplication);
-    return "job-app-create";
+    return "dashboard/job-app-create";
   }
 
-  @PostMapping("/job-app/new")
-  public String JobApplicationCreate(@Valid @ModelAttribute("jobApplication") JobApplicationDto JobAppDto,
-      Model model) {
-
-    return "redirect:/job-apps";
+  @PostMapping("/dashboard/job-app/new")
+  public String JobApplicationCreate(@Valid @ModelAttribute("jobApplication") JobApplicationDto jobAppDto,
+      BindingResult result, Model model) {
+    if (result.hasErrors()) {
+      model.addAttribute("jobApplication", jobAppDto);
+      return "/dashboard/job-app-create";
+    }
+    jobApplicationService.saveJobApplication(jobAppDto);
+    return "redirect:/dashboard/job-apps";
   }
 
-  @GetMapping("/job-app/{job-app-id}/edit")
+  @GetMapping("/dashboard/job-app/{job-app-id}/edit")
   public String jobApplicationUpdate(@PathVariable("job-app-id") Long jobAppId, Model model) {
-
-    return "job-app-create";
+    JobApplicationDto jobAppDto = jobApplicationService.findJobApplicationById(jobAppId);
+    model.addAttribute("jobApplication", jobAppDto);
+    return "dashboard/job-app-create";
   }
 
-  @PostMapping("/job-app/{job-app-id}/edit")
+  @PostMapping("/dashboard/job-app/{job-app-id}/edit")
   public String JobApplicationUpdate(@PathVariable("job-app-id") Long jobAppId,
       @Valid @ModelAttribute("jobApplication") JobApplicationDto jobAppDto,
       BindingResult result, Model model) {
-
-    return "redirect:/job-apps";
+    if (result.hasErrors())
+    {
+      model.addAttribute("jobApplication",jobAppDto);
+      return "dashboard/job-app-edit";
+    }
+    jobAppDto.setId(jobAppId);
+    jobApplicationService.updateJobApplication(jobAppDto);
+    return "redirect:dashboard/job-apps";
   }
 
-  @GetMapping("/job-app/{job-app-id}/delete")
+  @GetMapping("/dashboard/job-app/{job-app-id}/delete")
   public String jobApplicationDelete(@PathVariable("job-app-id") long jobAppId) {
-
-    return "job-app-delete";
+    jobApplicationService.delete(jobAppId);
+    return "redirect:dashboard/job-apps";
   }
 
 
