@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layout}">
+
+<head>
+  <title>Job Application Tracker</title>
+</head>
+<section layout:fragment="body">
+  <div class="">
+    <div class="">
+      <div class="">
+        <h1>Job Application Tracker</h1>
+        <form th:action="@{/dashboard/job-app/new}" th:object="${jobApplication}" method="post">
+          <div class="">
+            <label for="companyTitle">Company:</label>
+            <input type="text" id="companyTitle" th:field="*{companyTitle}" class="">
+          </div>
+
+          <div class="">
+            <label for="positionTitle">Role/Title/Position:</label>
+            <input type="text" id="positionTitle" th:field="*{positionTitle}" class="">
+          </div>
+
+          <div class="">
+            <label for="applicationUrl">Application URL:</label>
+            <input type="url" id="applicationUrl" th:field="*{applicationUrl}" class=""
+              name="applicationUrl">
+          </div>
+
+          <div class="">
+            <label for="submittedOn">Application Date:</label>
+            <input type="datetime-local" id="submittedOn" th:field="*{submittedOn}" class=""
+              name="submittedOn">
+          </div>
+
+          <div class="">
+            <label for="contactInfo">Contact Info:</label>
+            <input type="text" id="contactInfo" th:field="*{contactInfo}" class="">
+          </div>
+
+          <div class="">
+            <label for="response">Response (from company):</label>
+            <input type="text" id="response" th:field="*{response}" class="">
+          </div>
+
+          <div class="">
+            <label for="workType">Hybrid/On-site/Remote:</label>
+            <select id="workType" th:field="*{workType}" class="">
+              <option value="hybrid" th:text="#{workType.hybrid}">Hybrid</option>
+              <option value="on-site" th:text="#{workType.onSite}">On-site</option>
+              <option value="remote" th:text="#{workType.remote}">Remote</option>
+            </select>
+          </div>
+
+          <div class="">
+            <label for="status">Interview Process/Stage/Status:</label>
+            <input type="text" id="status" th:field="*{status}" class="">
+          </div>
+
+          <div class="">
+            <label for="location">Location:</label>
+            <input type="text" id="location" th:field="*{location}" class="">
+          </div>
+
+          <div class="">
+            <label for="salary">Salary/Pay:</label>
+            <input type="text" id="salary" th:field="*{salary}" class="">
+          </div>
+
+          <div class="">
+            <label for="jobPlatform">Job Platform (LinkedIn/Indeed/etc):</label>
+            <input type="text" id="jobPlatform" th:field="*{jobPlatform}" class="">
+          </div>
+
+          <button type="submit" class="">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+</html>

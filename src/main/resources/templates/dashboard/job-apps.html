@@ -1,0 +1,61 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <title>Getting Started: Serving Web Content</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <link th:href="@{/main.css}" rel="stylesheet" />
+</head>
+
+<body>
+  <table class="w-full text-left">
+    <thead>
+      <tr class="text-gray-400">
+        <th class="border-b border-gray-200 px-3 pb-3 pt-0 font-normal dark:border-gray-800">
+          Type
+        </th>
+        <th class="border-b border-gray-200 px-3 pb-3 pt-0 font-normal dark:border-gray-800">
+          Where
+        </th>
+        <th class="hidden border-b border-gray-200 px-3 pb-3 pt-0 font-normal md:table-cell dark:border-gray-800">
+          Description</th>
+        <th class="border-b border-gray-200 px-3 pb-3 pt-0 font-normal dark:border-gray-800">Amount</th>
+        <th
+          class="border-b border-gray-200 px-3 pb-3 pt-0 font-normal
+          text-black sm:text-gray-400 dark:border-gray-800">
+          Date</th>
+      </tr>
+    </thead>
+    <tbody class="text-gray-600 dark:text-gray-100">
+      <tr>
+        <td class="border-b border-gray-200 px-1 py-2 sm:p-3 dark:border-gray-800">
+          <div class="flex items-center">{Type}</div>
+        </td>
+        <td class="border-b border-gray-200 px-1 py-2 sm:p-3 dark:border-gray-800">
+          <div class="flex items-center">{Location}</div>
+        </td>
+        <td class="hidden border-b border-gray-200 px-1 py-2 sm:p-3 md:table-cell dark:border-gray-800">Subscription
+          renewal</td>
+        <td class="border-b border-gray-200 px-1 py-2 text-red-500 sm:p-3 dark:border-gray-800">{Some amount}</td>
+        <td class="border-b border-gray-200 px-1 py-2 sm:p-3 dark:border-gray-800">
+          <div class="flex items-center">
+            <div class="hidden flex-col sm:flex">
+              {Date}
+              <div class="text-xs text-gray-400">{Time}</div>
+            </div>
+            <button class="ml-auto inline-flex h-8 w-8 items-center justify-center text-gray-400">
+              <svg viewBox="0 0 24 24" class="w-5" stroke="currentColor" stroke-width="2" fill="none"
+                stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="1"></circle>
+                <circle cx="19" cy="12" r="1"></circle>
+                <circle cx="5" cy="12" r="1"></circle>
+              </svg>
+            </button>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</body>
+
+</html>
