@@ -19,14 +19,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Collection;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
 
 @Entity
@@ -34,17 +29,16 @@ import org.springframework.security.core.userdetails.UserDetails;
 @Data // @Data should auto-generate getters and setters
 @NoArgsConstructor
 @AllArgsConstructor
-public class User implements UserDetails {
+public class User{
 
   @Id // primary key annotation
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long Id;
-
-  @Column(name = "u_user")
-  private String username;
-
-  @Column(name = "u_pass")
+  @Column(nullable = false, unique = true)
+  private String email;
+  @Column(nullable = false)
   private String password;
+  private String username;
 
   @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
   @JoinTable(name = "users_roles", joinColumns = {
@@ -54,10 +48,5 @@ public class User implements UserDetails {
 
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "createdBy", cascade = CascadeType.ALL)
   private List<JobApplication> jobApplications = new ArrayList<>();
-
-  @Override
-  public Collection<? extends GrantedAuthority> getAuthorities() {
-    return roles.stream().map(role -> new SimpleGrantedAuthority(role.getType())).collect(Collectors.toList());
-  }
 
 }

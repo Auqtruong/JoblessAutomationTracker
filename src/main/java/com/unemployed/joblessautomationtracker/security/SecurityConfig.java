@@ -1,50 +1,62 @@
 package com.unemployed.joblessautomationtracker.security;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.ProviderManager;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
-import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+  UserDetailsService authUserService;
+
+  public SecurityConfig(UserDetailsService authUserService) {
+    this.authUserService = authUserService;
+  }
+
+  @Bean
+  public static PasswordEncoder passwordEncoder() {
+    return new BCryptPasswordEncoder();
+  }
+
+  @Bean
+  public AuthenticationManager authenticationManager(
+      UserDetailsService userDetailsService,
+      PasswordEncoder passwordEncoder) {
+    DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
+    authenticationProvider.setUserDetailsService(this.authUserService);
+    authenticationProvider.setPasswordEncoder(passwordEncoder);
+
+    ProviderManager providerManager = new ProviderManager(authenticationProvider);
+    providerManager.setEraseCredentialsAfterAuthentication(false);
+
+    return providerManager;
+  }
 
   @Bean
   public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-    // @formatter:off
-		http
-				.authorizeHttpRequests((authorize) -> authorize
-						.anyRequest().authenticated()
-				)
-				.httpBasic(withDefaults())
-				.formLogin(withDefaults());
-		// @formatter:on
+    http
+        .authorizeHttpRequests((authorize) -> authorize
+            .requestMatchers("/", "/home","/register/**").permitAll()
+            .anyRequest().authenticated())
+        .formLogin((form) -> form
+            .loginPage("/login")
+            .defaultSuccessUrl("/dashboard/job-apps", true)
+            .permitAll())
+        .logout((logout) -> logout
+            .logoutUrl("/logout")
+            .invalidateHttpSession(true)
+            .permitAll());
     return http.build();
   }
-
-  // @formatter:off
-	@Bean
-	public UserDetailsService userDetailsService() {
-		UserDetails user = User.withDefaultPasswordEncoder()
-				.username("test")
-				.password("test")
-				.roles("NORMAL")
-				.build();
-		return new InMemoryUserDetailsManager(user);
-	}
-	// @formatter:on
 
 }
