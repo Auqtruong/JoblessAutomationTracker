@@ -70,4 +70,8 @@ build/
 env.properties
 application.properties
 
+## NPM resouces
+node_modules
+
+
 
